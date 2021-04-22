@@ -7,6 +7,20 @@
     <title>Document</title>
 </head>
 <style>
+    body, html {
+        padding: 0!important;
+        margin: 0!important;
+        
+    }
+    html {
+        font-size: 62.5%;
+    }
+    body {
+        max-width: 100vw;
+        max-height: 100vh;
+        width: 100vw;
+        height: 100vh;
+    }
    #myVideo {
   position: fixed;
   right: 0;
@@ -20,29 +34,66 @@
   background: #e4721080;
   color: #f1f1f1;
   width: 100%;
-  padding: 20px;
+  padding: 1rem;
   font-size: 2rem;
   font-weight: bold;
   color: #f1f1f1;
-  width: 100%;
-  padding: 20px;
+  width: 90%;
+
 }
-h1 {
+#ques {
     color: #ffffff;
     position: fixed;
     bottom: 5rem;
     background: rgba(117, 49, 173, 0.5);
+    padding: 1rem;
+    width: 90%;
+}
+h1 {
+    color: inherit;
+}
+@media  (max-width: 600px) {
+     main {
+        border: 1rem solid #522d2d!important;
+    }
+    
+    video {
+        width: 100vw!important;
+        height: 100vh!important;
+    }
+}
+@media   (min-width: 601px) and (max-width: 760px) {
+     main {
+        border: 1rem solid #027c49!important;
+    }
+}
+@media  (min-width: 761px) and (max-width: 1120px) {
+    main {
+        border: 1rem solid #176ea8!important;
+    }
+}
+@media  (min-width: 1121px) {
+     main {
+        border: 1rem solid #ac0767!important;
+    }
 }
 </style>
 <body>
-    
-    <!-- The video -->
-    <video autoplay muted loop id="myVideo">
-        <source src="./train.mp4" type="video/mp4">
-    </video>
+    <main>
+        <section>
+            <!-- The video -->
+            <video autoplay muted loop id="myVideo">
+                <source src="./Train arriving.mp4" type="video/mp4">
+            </video>
+        </section>
 
-    <h1>Find the minimum number of platforms required for the railway station so that no train waits.</h1>
-    <div class="content" id="result"></div>
+        <article>
+            <div id="ques">
+            <h1>Find the minimum number of platforms required for the railway station so that no train waits.</h1>
+            </div>
+            <div class="content" id="result"></div>
+        </article>
+    </main>
     
     <script>
         var arrivalTimes = ["9:00", "9:40", "9:50", "11:00", "15:00", "18:00"];
