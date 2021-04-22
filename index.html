@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+   #myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+.content {
+  position: fixed;
+  bottom: 0;
+  background: #e4721080;
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+}
+h1 {
+    color: #ffffff;
+    position: fixed;
+    bottom: 5rem;
+    background: rgba(117, 49, 173, 0.5);
+}
+</style>
+<body>
+    
+    <!-- The video -->
+    <video autoplay muted loop id="myVideo">
+        <source src="./train.mp4" type="video/mp4">
+    </video>
+
+    <h1>Find the minimum number of platforms required for the railway station so that no train waits.</h1>
+    <div class="content" id="result"></div>
+    
+    <script>
+        var arrivalTimes = ["9:00", "9:40", "9:50", "11:00", "15:00", "18:00"];
+        var departureTimes = ["9:10", "12:00", "11:20", "11:30", "19:00", "20:00"];
+
+        // convert arrival time to int
+        function convertInt(item) {
+        // split minutes and seconds
+        array = item.split(":");
+        minute = parseInt(array[0]);
+        seconds = parseInt(array[1]);
+
+        return minute * 60 + seconds;
+        }
+
+        // Return minimum number of platforms required
+        function findPlatform(arr, dep, n) {
+        // Sort arrival and departure arrays
+        arr.sort(function(a, b) {
+            return a - b;
+        });
+        dep.sort(function(a, b) {
+                return a - b;
+            });
+
+        console.log("Sorted Arrival", arr);
+        console.log("Sorted Departure", dep);
+
+        // plat_needed indicates number of platforms needed at a time
+        var plat_needed = 1, result = 1;
+        var i = 1, j = 0;
+
+        // Similar to merge in merge sort to process all events in sorted order
+        while(i < n && j < n) {
+            // If next event in sorted order is arrival, 
+            // increment count of platforms needed
+            if( arr[i] <= dep[j] ) {
+            plat_needed++;
+            i++;
+            }
+            else if(arr[i] > dep[j]) { // else decrement count of platforms needed
+            plat_needed--;
+            j++;
+            }
+
+            // update rsult if needed
+            if( plat_needed > result )
+            result = plat_needed;
+        }
+
+        return result;
+        }
+
+        var arr = arrivalTimes.map(convertInt);
+        var dep = departureTimes.map(convertInt);
+
+        console.log("Arrival", arr);
+        console.log("Departure", dep);
+
+
+        // arr = [900, 940, 950, 1100, 1500, 1800 ];
+        // dep = [910, 1200, 1120, 1130, 1900, 2000];
+
+        var num = findPlatform(arr, dep, arr.length);
+        console.log("Minimum Number of Platforms Required = ", num);
+        document.getElementById('result').textContent = 'Minimum Number of Platforms Required = ' + num;
+    </script>
+</body>
+</html>
